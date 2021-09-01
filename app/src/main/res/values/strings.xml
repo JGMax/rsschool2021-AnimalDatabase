@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">AnimalStorage</string>
+    <string name="breed_desc">Breed:</string>
+    <string name="age_desc">Age:</string>
+    <string name="name_desc">Name:</string>
+    <string name="add_animal_data_fab_desc">Add animal data</string>
+    <string name="name_field_hint">Name</string>
+    <string name="age_field_hint">Age</string>
+    <string name="breed_field_hint">Breed</string>
+    <string name="add_btn">Add animal</string>
+    <string name="edit_btn">Edit animal</string>
+    <string name="empty_name_field_error">Name field is empty</string>
+    <string name="empty_age_field_error">Age field is empty</string>
+    <string name="incorrect_age_field_error">Age field is incorrect</string>
+    <string name="empty_breed_field_error">Breed field is empty</string>
+</resources>

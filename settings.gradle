@@ -1,0 +1,2 @@
+rootProject.name = "AnimalStorage"
+include ':app'

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextViewAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextViewStyle">
+        <item name="android:textAppearance">@style/TextViewAppearance</item>
+    </style>
+</resources>
