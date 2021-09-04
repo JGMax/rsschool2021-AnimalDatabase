@@ -74,7 +74,8 @@ class AnimalListFragment : Fragment(), AnimalListView, StateObserver, AnimalList
     }
 
     private fun onAddClick() {
-        openFragment(UpdateAnimalFragment())
+        //openFragment(UpdateAnimalFragment())
+        openFragment(SettingsFragment())
     }
 
     override fun onDestroyView() {

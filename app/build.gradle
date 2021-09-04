@@ -52,6 +52,10 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:2.2.21"
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
+    // Preference
+    def preference_version = "1.1.1"
+    implementation "androidx.preference:preference-ktx:$preference_version"
+
 
     // Core
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

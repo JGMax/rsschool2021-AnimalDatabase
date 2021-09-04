@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <PreferenceCategory android:title="@string/sort_category_title">
+        <SwitchPreferenceCompat
+            android:key="@string/sort_data_switch_key"
+            android:summary="@string/sort_data_switch_summary"
+            android:title="@string/sort_data_switch_title" />
+        <ListPreference
+            android:entries="@array/sort_list"
+            android:entryValues="@array/sort_list"
+            android:key="@string/sort_list_key"
+            android:title="@string/sort_list_title"
+            app:enabled="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/database_category_title">
+        <SwitchPreference
+            app:key="@string/room_on_switch_key"
+            app:summary="@string/room_on_switch_summary"
+            app:title="@string/room_on_switch_title" />
+    </PreferenceCategory>
+</PreferenceScreen>

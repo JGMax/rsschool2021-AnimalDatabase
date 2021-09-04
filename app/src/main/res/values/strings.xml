@@ -13,4 +13,20 @@
     <string name="empty_age_field_error">Age field is empty</string>
     <string name="incorrect_age_field_error">Age field is incorrect</string>
     <string name="empty_breed_field_error">Breed field is empty</string>
+    <string name="database_category_title">Database</string>
+    <string name="room_on_switch_key">room_on_switch</string>
+    <string name="room_on_switch_summary">Switch on Room database</string>
+    <string name="room_on_switch_title">Room</string>
+    <string name="sort_category_title">Sort</string>
+    <string name="sort_data_switch_key">sort_data_key</string>
+    <string name="sort_data_switch_summary">Sorting enable</string>
+    <string name="sort_data_switch_title">Sort data</string>
+    <string name="sort_list_key">sort_list</string>
+    <string name="sort_list_title">Sort By</string>
+
+    <string-array name="sort_list">
+        <item>Name</item>
+        <item>Breed</item>
+        <item>Age</item>
+    </string-array>
 </resources>
