@@ -1,17 +1,21 @@
 package gortea.jgmax.animalstorage.ui.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import gortea.jgmax.animalstorage.AnimalListApp
+import gortea.jgmax.animalstorage.R
 import gortea.jgmax.animalstorage.data.model.AnimalItem
+import gortea.jgmax.animalstorage.data.storage.dao.AnimalDao
+import gortea.jgmax.animalstorage.data.storage.dao.DaoProvider
 import gortea.jgmax.animalstorage.databinding.AnimalListFragmentBinding
 import gortea.jgmax.animalstorage.ui.list.adapter.AnimalListAdapter
 import gortea.jgmax.animalstorage.ui.list.decorators.HorizontalItemDecorator
@@ -24,18 +28,38 @@ import gortea.jgmax.animalstorage.ui.view.StateObserver
 import gortea.jgmax.animalstorage.ui.viewmodel.AnimalListViewModel
 import gortea.jgmax.animalstorage.ui.viewmodel.states.AnimalListState
 
-class AnimalListFragment : Fragment(), AnimalListView, StateObserver, AnimalListAdapter.OnItemClickListener {
+class AnimalListFragment : Fragment(), AnimalListView, StateObserver,
+    AnimalListAdapter.OnItemClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
     private var _binding: AnimalListFragmentBinding? = null
     private val binding: AnimalListFragmentBinding
         get() = requireNotNull(_binding)
 
     private val adapter: AnimalListAdapter = AnimalListAdapter(this)
     private val viewModel: AnimalListViewModel by activityViewModels()
+    private var roomDAO: AnimalDao? = null
+    private var cursorDAO: AnimalDao? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val application = activity?.application as? AnimalListApp ?: return
-        viewModel.attachDao(application.animalListDao)
+        val application = activity?.application as? DaoProvider ?: return
+        roomDAO = application.roomDAO
+        cursorDAO = application.cursorDAO
+        application.roomDAO?.let { viewModel.attachDao(it) }
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        prefs.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        when(key) {
+            getString(R.string.room_on_switch_key) -> {
+                val roomEnabled = sharedPreferences?.getBoolean(key, true)
+                if (roomEnabled != false) {
+                    roomDAO?.let { viewModel.attachDao(it) }
+                } else {
+                    cursorDAO?.let { viewModel.attachDao(it) }
+                }
+            }
+        }
     }
 
     override fun onCreateView(

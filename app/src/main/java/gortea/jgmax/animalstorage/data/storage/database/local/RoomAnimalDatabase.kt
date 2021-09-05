@@ -5,11 +5,7 @@ import androidx.room.RoomDatabase
 import gortea.jgmax.animalstorage.data.storage.dao.implementation.local.RoomAnimalDao
 import gortea.jgmax.animalstorage.data.storage.entity.local.AnimalEntity
 
-@Database(entities = [AnimalEntity::class], version = 1)
+@Database(entities = [AnimalEntity::class], version = DATABASE_VERSION)
 abstract class RoomAnimalDatabase: RoomDatabase() {
     abstract fun getAnimalDao(): RoomAnimalDao
-
-    companion object {
-        const val DATABASE_NAME="animal_database"
-    }
 }

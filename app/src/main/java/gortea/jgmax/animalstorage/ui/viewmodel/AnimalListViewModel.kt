@@ -138,7 +138,7 @@ class AnimalListViewModel : ViewModel(), AnimalListCommunication,
         )
     }
 
-    fun updateItem(id: Long, name: String?, age: String?, breed: String?) {
+    fun updateItem(id: Int, name: String?, age: String?, breed: String?) {
         if (!checkFields(name, age, breed)) return
         updateItem(
             dataToItem(
@@ -175,7 +175,7 @@ class AnimalListViewModel : ViewModel(), AnimalListCommunication,
         }
     }
 
-    override fun dataToItem(name: String, age: Int, breed: String, id: Long): AnimalItem {
+    override fun dataToItem(name: String, age: Int, breed: String, id: Int): AnimalItem {
         return AnimalItem(
             id = id,
             name = name,

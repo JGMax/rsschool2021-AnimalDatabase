@@ -2,6 +2,7 @@ package gortea.jgmax.animalstorage.data.storage.dao.implementation.local
 
 import androidx.room.*
 import gortea.jgmax.animalstorage.data.storage.dao.AnimalDao
+import gortea.jgmax.animalstorage.data.storage.database.local.TABLE_NAME
 import gortea.jgmax.animalstorage.data.storage.entity.local.AnimalEntity
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -12,16 +13,16 @@ interface RoomAnimalDao: AnimalDao {
     @JvmSuppressWildcards
     override fun addEntity(entity: AnimalEntity): Completable
 
-    @Query("SELECT * FROM ${AnimalEntity.TABLE_NAME} ORDER BY animal_age")
+    @Query("SELECT * FROM $TABLE_NAME ORDER BY animal_age")
     override fun getAllByAge(): Single<List<AnimalEntity>>
 
-    @Query("SELECT * FROM ${AnimalEntity.TABLE_NAME} ORDER BY animal_name")
+    @Query("SELECT * FROM $TABLE_NAME ORDER BY animal_name")
     override fun getAllByName(): Single<List<AnimalEntity>>
 
-    @Query("SELECT * FROM ${AnimalEntity.TABLE_NAME} ORDER BY animal_breed")
+    @Query("SELECT * FROM $TABLE_NAME ORDER BY animal_breed")
     override fun getAllByBreed(): Single<List<AnimalEntity>>
 
-    @Query("SELECT * FROM ${AnimalEntity.TABLE_NAME}")
+    @Query("SELECT * FROM $TABLE_NAME")
     override fun getAll(): Single<List<AnimalEntity>>
 
     @Delete(entity = AnimalEntity::class)
