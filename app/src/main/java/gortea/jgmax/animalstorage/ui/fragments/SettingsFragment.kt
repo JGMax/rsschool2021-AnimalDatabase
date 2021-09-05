@@ -13,14 +13,6 @@ import gortea.jgmax.animalstorage.ui.navigation.ActionBarController
 class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings_screen, rootKey)
-        val sortEnablePreference: SwitchPreferenceCompat? = findPreference(getString(R.string.sort_data_switch_key))
-        val sortByList: ListPreference? = findPreference(getString(R.string.sort_list_key))
-        sortByList?.value
-        sortEnablePreference?.setOnPreferenceChangeListener { preference, _ ->
-            val me = preference as SwitchPreferenceCompat
-            sortByList?.isEnabled = !me.isChecked
-            true
-        }
     }
 
     override fun onCreateView(
