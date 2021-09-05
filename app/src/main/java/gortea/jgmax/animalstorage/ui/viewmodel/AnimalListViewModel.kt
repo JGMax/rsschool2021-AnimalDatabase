@@ -25,6 +25,18 @@ class AnimalListViewModel : ViewModel(), AnimalListCommunication,
     private var sortType: SortType? = null
     private lateinit var repository: AnimalRepository
 
+    fun setSortType(isSortEnabled: Boolean, sortType: String) {
+        val type = if (isSortEnabled) {
+            SortType.valueOf(sortType)
+        } else {
+            null
+        }
+        if (type != this.sortType) {
+            this.sortType = type
+            fetchItems(isForcing = true)
+        }
+    }
+
     private fun <T> setErrorState(message: T) {
         state.value = AnimalListState.UpdateError(message)
     }
@@ -84,9 +96,7 @@ class AnimalListViewModel : ViewModel(), AnimalListCommunication,
             .subscribe(
                 {
                     setSuccessInsertState()
-                    val index = list.indexOfFirst { it?.id == animalItem.id }
-                    list[index] = animalItem
-                    setUpdateState(list)
+                    fetchItems(isForcing = true)
                 },
                 {
                     setErrorState(it.localizedMessage)
@@ -95,9 +105,9 @@ class AnimalListViewModel : ViewModel(), AnimalListCommunication,
         disposeBag.add(disposable)
     }
 
-    fun fetchItems(sortBy: SortType? = sortType, isForcing: Boolean = false) {
-        if (isForcing || sortBy != sortType || list.isEmpty()) {
-            fetchItems(sortBy)
+    fun fetchItems(isForcing: Boolean = false) {
+        if (isForcing || list.isEmpty()) {
+            fetchItems(sortType)
         } else {
             setUpdateState(list)
         }
@@ -109,7 +119,6 @@ class AnimalListViewModel : ViewModel(), AnimalListCommunication,
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    sortType = sortBy
                     list.clear()
                     list.addAll(it + null)
                     setUpdateState(list)
@@ -184,6 +193,5 @@ class AnimalListViewModel : ViewModel(), AnimalListCommunication,
         )
     }
 
-    fun getAnimalList(): List<AnimalItem?> = list.toList()
     fun getState(): LiveData<AnimalListState> = state
 }

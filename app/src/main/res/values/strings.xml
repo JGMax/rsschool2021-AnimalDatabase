@@ -24,10 +24,22 @@
     <string name="sort_list_key">sort_list</string>
     <string name="sort_list_title">Sort By</string>
     <string name="settings_item">Settings</string>
+    <string name="name_sort_way">Name</string>
+    <string name="breed_sort_way">Breed</string>
+    <string name="age_sort_way">Age</string>
+    <string name="name_type">NAME</string>
+    <string name="age_type">AGE</string>
+    <string name="breed_type">BREED</string>
 
     <string-array name="sort_list">
-        <item>Name</item>
-        <item>Breed</item>
-        <item>Age</item>
+        <item>@string/name_sort_way</item>
+        <item>@string/breed_sort_way</item>
+        <item>@string/age_sort_way</item>
+    </string-array>
+
+    <string-array name="sort_list_values">
+        <item>@string/name_type</item>
+        <item>@string/breed_type</item>
+        <item>@string/age_type</item>
     </string-array>
 </resources>

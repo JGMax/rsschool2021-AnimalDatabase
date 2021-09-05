@@ -16,12 +16,4 @@ class AnimalItemViewHolder(private val binding: AnimalListItemBinding) :
             editBtn.setOnClickListener { listener?.onEditClick(item) }
         }
     }
-
-    override fun bind(item: AnimalItem, payloads: List<Any>) {
-        binding.apply {
-            nameTv.text = item.name
-            ageTv.text = item.age.toString()
-            breedTv.text = item.breed
-        }
-    }
 }

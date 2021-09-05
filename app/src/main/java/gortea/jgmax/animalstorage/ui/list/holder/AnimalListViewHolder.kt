@@ -7,5 +7,4 @@ import gortea.jgmax.animalstorage.ui.list.adapter.AnimalListAdapter
 
 abstract class AnimalListViewHolder(root: View) : RecyclerView.ViewHolder(root) {
     abstract fun bind(item: AnimalItem, listener: AnimalListAdapter.OnItemClickListener?)
-    abstract fun bind(item: AnimalItem, payloads: List<Any>)
 }

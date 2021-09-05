@@ -2,7 +2,6 @@ package gortea.jgmax.animalstorage.ui.fragments
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,27 +37,50 @@ class AnimalListFragment : Fragment(), AnimalListView, StateObserver,
     private val viewModel: AnimalListViewModel by activityViewModels()
     private var roomDAO: AnimalDao? = null
     private var cursorDAO: AnimalDao? = null
+    private val roomOnKey: String by lazy {
+        getString(R.string.room_on_switch_key)
+    }
+    private val sortOnKey: String by lazy {
+        getString(R.string.sort_data_switch_key)
+    }
+    private val sortTypeKey: String by lazy {
+        getString(R.string.sort_list_key)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val application = activity?.application as? DaoProvider ?: return
         roomDAO = application.roomDAO
         cursorDAO = application.cursorDAO
-        application.roomDAO?.let { viewModel.attachDao(it) }
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         prefs.registerOnSharedPreferenceChangeListener(this)
+        updateDAO(prefs)
+        updateSortType(prefs)
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        when(key) {
-            getString(R.string.room_on_switch_key) -> {
-                val roomEnabled = sharedPreferences?.getBoolean(key, true)
-                if (roomEnabled != false) {
-                    roomDAO?.let { viewModel.attachDao(it) }
-                } else {
-                    cursorDAO?.let { viewModel.attachDao(it) }
-                }
+        when (key) {
+            roomOnKey -> {
+                sharedPreferences?.let { updateDAO(it) }
             }
+            sortOnKey, sortTypeKey -> {
+                sharedPreferences?.let { updateSortType(it) }
+            }
+        }
+    }
+
+    private fun updateSortType(prefs: SharedPreferences) {
+        val sortEnabled = prefs.getBoolean(sortOnKey, false)
+        val sortType = prefs.getString(sortTypeKey, "") ?: return
+        viewModel.setSortType(sortEnabled, sortType)
+    }
+
+    private fun updateDAO(prefs: SharedPreferences) {
+        val roomEnabled = prefs.getBoolean(roomOnKey, true)
+        if (roomEnabled) {
+            roomDAO?.let { viewModel.attachDao(it) }
+        } else {
+            cursorDAO?.let { viewModel.attachDao(it) }
         }
     }
 

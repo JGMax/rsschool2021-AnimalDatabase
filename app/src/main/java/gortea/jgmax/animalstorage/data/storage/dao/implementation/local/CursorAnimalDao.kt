@@ -2,6 +2,7 @@ package gortea.jgmax.animalstorage.data.storage.dao.implementation.local
 
 import android.database.Cursor
 import android.database.SQLException
+import android.util.Log
 import gortea.jgmax.animalstorage.data.storage.dao.AnimalDao
 import gortea.jgmax.animalstorage.data.storage.database.local.*
 import gortea.jgmax.animalstorage.data.storage.entity.local.AnimalEntity
@@ -17,27 +18,19 @@ class CursorAnimalDao(private val accessHelper: MySQLiteOpenHelper) : AnimalDao 
     }
 
     override fun getAllByName(): Single<List<AnimalEntity>> {
-        accessHelper.getCursorOfSortedAnimals(SortType.NAME).use {
-            return SingleListResponse(it)
-        }
+        return SingleListResponse(accessHelper.getCursorOfSortedAnimals(SortType.NAME))
     }
 
     override fun getAllByAge(): Single<List<AnimalEntity>> {
-        accessHelper.getCursorOfSortedAnimals(SortType.AGE).use {
-            return SingleListResponse(it)
-        }
+        return SingleListResponse(accessHelper.getCursorOfSortedAnimals(SortType.AGE))
     }
 
     override fun getAllByBreed(): Single<List<AnimalEntity>> {
-        accessHelper.getCursorOfSortedAnimals(SortType.BREED).use {
-            return SingleListResponse(it)
-        }
+        return SingleListResponse(accessHelper.getCursorOfSortedAnimals(SortType.BREED))
     }
 
     override fun getAll(): Single<List<AnimalEntity>> {
-        accessHelper.getCursorOfAnimals().use {
-            return SingleListResponse(it)
-        }
+        return SingleListResponse(accessHelper.getCursorOfAnimals())
     }
 
     override fun delete(entity: AnimalEntity): Completable {
@@ -65,10 +58,14 @@ class CursorAnimalDao(private val accessHelper: MySQLiteOpenHelper) : AnimalDao 
     private class SingleListResponse(private val cursor: Cursor) : Single<List<AnimalEntity>>() {
         override fun subscribeActual(observer: SingleObserver<in List<AnimalEntity>>) {
             try {
-                val list = getDataListFromCursor(cursor)
-                observer.onSuccess(list)
+                cursor.use {
+                    val list = getDataListFromCursor(cursor)
+                    observer.onSuccess(list)
+                }
             } catch (exception: SQLException) {
                 observer.onError(exception)
+            } catch (e: Exception) {
+                Log.e("error", "message", e)
             }
         }
 

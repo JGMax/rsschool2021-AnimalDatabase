@@ -55,7 +55,7 @@ class AnimalListAdapter(
         } else {
             if (holder is AnimalListViewHolder) {
                 val item = getItem(position) ?: return
-                holder.bind(item, payloads)
+                holder.bind(item, listener)
             }
         }
     }

@@ -5,15 +5,16 @@
 
     <PreferenceCategory android:title="@string/sort_category_title">
         <SwitchPreferenceCompat
-            app:defaultValue="false"
             android:key="@string/sort_data_switch_key"
             android:summary="@string/sort_data_switch_summary"
-            android:title="@string/sort_data_switch_title" />
+            android:title="@string/sort_data_switch_title"
+            app:defaultValue="false" />
         <ListPreference
             android:entries="@array/sort_list"
-            android:entryValues="@array/sort_list"
+            android:entryValues="@array/sort_list_values"
             android:key="@string/sort_list_key"
             android:title="@string/sort_list_title"
+            app:defaultValue="@string/name_type"
             app:dependency="@string/sort_data_switch_key" />
     </PreferenceCategory>
 
