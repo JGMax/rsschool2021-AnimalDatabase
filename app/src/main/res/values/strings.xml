@@ -23,6 +23,7 @@
     <string name="sort_data_switch_title">Sort data</string>
     <string name="sort_list_key">sort_list</string>
     <string name="sort_list_title">Sort By</string>
+    <string name="settings_item">Settings</string>
 
     <string-array name="sort_list">
         <item>Name</item>

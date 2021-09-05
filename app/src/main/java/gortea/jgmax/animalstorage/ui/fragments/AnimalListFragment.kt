@@ -16,6 +16,7 @@ import gortea.jgmax.animalstorage.databinding.AnimalListFragmentBinding
 import gortea.jgmax.animalstorage.ui.list.adapter.AnimalListAdapter
 import gortea.jgmax.animalstorage.ui.list.decorators.HorizontalItemDecorator
 import gortea.jgmax.animalstorage.ui.list.decorators.VerticalItemDecorator
+import gortea.jgmax.animalstorage.ui.navigation.ActionBarController
 import gortea.jgmax.animalstorage.ui.navigation.FragmentNavigator
 import gortea.jgmax.animalstorage.ui.utils.*
 import gortea.jgmax.animalstorage.ui.view.AnimalListView
@@ -42,6 +43,8 @@ class AnimalListFragment : Fragment(), AnimalListView, StateObserver, AnimalList
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val actionBarController = context as? ActionBarController
+        actionBarController?.setActionBarVisibility(true)
         _binding = AnimalListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -74,8 +77,7 @@ class AnimalListFragment : Fragment(), AnimalListView, StateObserver, AnimalList
     }
 
     private fun onAddClick() {
-        //openFragment(UpdateAnimalFragment())
-        openFragment(SettingsFragment())
+        openFragment(UpdateAnimalFragment())
     }
 
     override fun onDestroyView() {

@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import gortea.jgmax.animalstorage.R
 import gortea.jgmax.animalstorage.data.model.AnimalItem
 import gortea.jgmax.animalstorage.databinding.UpdateAnimalFragmentBinding
+import gortea.jgmax.animalstorage.ui.navigation.ActionBarController
 import gortea.jgmax.animalstorage.ui.utils.getMessageString
 import gortea.jgmax.animalstorage.ui.utils.getString
 import gortea.jgmax.animalstorage.ui.view.StateObserver
@@ -28,6 +29,8 @@ class UpdateAnimalFragment : Fragment(), StateObserver {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val actionBarController = context as? ActionBarController
+        actionBarController?.setActionBarVisibility(true)
         _binding = UpdateAnimalFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
